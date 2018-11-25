@@ -8,9 +8,9 @@ entity servos is
            rst : in STD_LOGIC;
            SW : in STD_LOGIC_VECTOR (6 DOWNTO 0);
            pwm_left : out STD_LOGIC;
-           pwm_right: out STD_LOGIC;
-           left_servo_angle : out std_logic_vector (7 downto 0);
-           right_servo_angle : out std_logic_vector (7 downto 0));
+           pwm_right: out STD_LOGIC);
+           --left_servo_angle : out std_logic_vector (7 downto 0);
+           --right_servo_angle : out std_logic_vector (7 downto 0));
 end servos;
 
 architecture Behavioral of servos is
@@ -51,6 +51,8 @@ signal clk_40Hz : std_logic := '0';
 signal count_right : integer:= 0;
 signal count_left : integer := 0;
 signal clk_50Hz : std_logic := '0';
+signal left_servo_angle : out std_logic_vector (7 downto 0);
+signal right_servo_angle : out std_logic_vector (7 downto 0);
 
 begin
 
@@ -94,14 +96,14 @@ begin
     end if;
 end process;
 
-process(clk_50Hz,rst)
-begin
-    if(rst = '1') then
-        left_servo_angle <= (others => '0');
-        right_servo_angle <= (others => '0');
-    elsif(clk_50Hz'event and clk_50Hz = '1') then
-        left_servo_angle <= std_logic_vector(to_unsigned((count_left_val-150000)/1096,8));
-        right_servo_angle <= std_logic_vector(to_unsigned((150000-count_right_val)/932,8));
-    end if;
-end process;
+--process(clk_50Hz,rst)
+--begin
+--    if(rst = '1') then
+--        left_servo_angle <= (others => '0');
+--        right_servo_angle <= (others => '0');
+--    elsif(clk_50Hz'event and clk_50Hz = '1') then
+--        left_servo_angle <= std_logic_vector(to_unsigned((count_left_val-150000)/1096,8));
+--        right_servo_angle <= std_logic_vector(to_unsigned((150000-count_right_val)/932,8));
+--    end if;
+--end process;
 end Behavioral;
